@@ -3,6 +3,7 @@ import './App.css';
 import Layout from '../components/Layout/Layout';
 import Home from '../components/Home/Home';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import NotFound from '../components/ErrorPages/NotFound/NotFound';
 //import OwnerList from './Owner/OwnerList/OwnerList';
 import asyncComponent from '../hoc/AsyncComponent/AsyncComponent';
@@ -21,8 +22,9 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/owner-list" component={AsyncOwnerList} />
-            <Route path="/createOwner" component={CreateOwner} />
+            <Route path="/create" component={CreateOwner} />
             <Route path="/500" component={internalServer} />
+            <Route path="/internalError" component={internalServer} />
             <Route path="*" component={NotFound} />
           </Switch>
         </Layout>
