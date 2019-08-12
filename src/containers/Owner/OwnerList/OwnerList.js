@@ -41,7 +41,7 @@ class OwnerList extends Component {
                             <thead>
                                 <tr>
                                     <th>id</th>
-                                    <th sm={2} md={1} style={{ margin: 0 }}>employee_name</th>
+                                    <th  style={{ margin: 0,width:100}}>employee_name</th>
                                     <th style={{ 'wordWrap': 'break-word', width: 2 }}>employee_salary</th>
                                     <th>employee_age</th>
                                     <th>profile_image</th>
@@ -65,7 +65,7 @@ class OwnerList extends Component {
 // To access this data property, we just need to call it like this: this.props.data.
 const mapStateToProps = (state) => {
     return {
-        data: state.data
+        data: state.repository.data
     }
 }
 // the Central Store maps data property comming from reducer to this component with the mapStateToProps function.

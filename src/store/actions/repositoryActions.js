@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from '../../axios/aixos';
+import * as errorHandlerActions from './errorHandlerActions';
 
 const getDataSuccess = (data) => {
     return {
@@ -8,17 +9,27 @@ const getDataSuccess = (data) => {
     }
 }
 
+
+// const response = { status: 500 , message:'moshkel dakheli'};
+
+// const myerr = {
+
+//     response: response
+// }
 export const getData = (url, props) => {
     return (dispatch) => {
-        axios.get(url)
-        .then(response => {
-            //alert('daryaft shode..');
-            dispatch(getDataSuccess(response.data));
-        })
-        .catch(error => {
-            //TODO: handle the error when implemented
-            alert(error)
-        })
+           axios.get(url)
+               .then(response => {
+                   //alert('daryaft shode..');
+                   dispatch(getDataSuccess(response.data));
+               })
+               .catch(error => {
+                   //alert(error)
+                   dispatch(errorHandlerActions.handleHTTPError(error, props));
+   
+               }) 
+       
+        //dispatch(errorHandlerActions.handleHTTPError(myerr, props));
     }
 }
 
@@ -32,12 +43,13 @@ const postDataSuccess = (response) => {
 export const postData = (url, obj, props) => {
     return (dispatch) => {
         axios.post(url, obj)
-        .then(response => {
-            dispatch(postDataSuccess(response));
-        })
-        .catch(error => {
-            //TODO: handle the error when implemented
-        })
+            .then(response => {
+                dispatch(postDataSuccess(response));
+            })
+            .catch(error => {
+                dispatch(errorHandlerActions.handleHTTPError(error, props));
+
+            })
     }
 }
 
@@ -51,12 +63,13 @@ const putDataSuccess = (response) => {
 export const putData = (url, obj, props) => {
     return (dispatch) => {
         axios.put(url, obj)
-        .then(response => {
-            dispatch(putDataSuccess(response));
-        })
-        .catch(error => {
-            //TODO: handle the error when implemented
-        })
+            .then(response => {
+                dispatch(putDataSuccess(response));
+            })
+            .catch(error => {
+                dispatch(errorHandlerActions.handleHTTPError(error, props));
+
+            })
     }
 }
 
@@ -70,11 +83,12 @@ const deleteDataSuccess = (response) => {
 export const deleteData = (url, props) => {
     return (dispatch) => {
         axios.delete(url)
-        .then(response => {
-            dispatch(deleteDataSuccess(response));
-        })
-        .catch(error => {
-            //TODO: handle the error when implemented
-        })
+            .then(response => {
+                dispatch(deleteDataSuccess(response));
+            })
+            .catch(error => {
+                dispatch(errorHandlerActions.handleHTTPError(error, props));
+                //TODO: handle the error when implemented
+            })
     }
 }

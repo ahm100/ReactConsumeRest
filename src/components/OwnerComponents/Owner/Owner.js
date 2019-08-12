@@ -16,12 +16,12 @@ const rediterctToDeleteOwner = (id, history) => {
     history.push('/delete/' + id);
 }
 
-const cellStyle = {
-    color: 'blue',
-    'whitespace': 'normal !important',
-    'wordWrap': 'break-word'
-    
-  };
+// const cellStyle = {
+//     color: 'blue',
+//     'whitespace': 'normal !important',
+//     'wordWrap': 'break-word',
+//     width:100
+//   };
 
 const owner = (props) => {
     return (
@@ -29,8 +29,8 @@ const owner = (props) => {
             <tr>
                 {/* <td>{props.owner.name}</td> */}
                 <td>{props.owner.id}</td>
-                <td sm={2} md={1} style={cellStyle}>{props.owner.employee_name}</td>
-            {/* <td sm={2} md={1} style={{margin:0}}>{props.owner.employee_name}</td> */}
+                {/* <td  style={cellStyle}>{props.owner.employee_name}</td> */}
+                <td  style={{ margin: 0,width:100}}>{props.owner.employee_name}</td>
                 <td style={{margin:0}}>{props.owner.employee_salary}</td>
                 <td>{props.owner.employee_age}</td>
                 <td>{props.owner.profile_image}</td>
