@@ -9,27 +9,27 @@ const getDataSuccess = (data) => {
     }
 }
 
+//const response = { status: 500 , message:'moshkel dakheli'};
+//const fresponse = ()=>{ return { status: 500 , message:'moshkel dakheli'} };
 
-// const response = { status: 500 , message:'moshkel dakheli'};
-
-// const myerr = {
-
-//     response: response
+// const myerr = {  
+//     //response: response  // this is for case we use exactly an object not arrow function
+//     response: fresponse()
 // }
 export const getData = (url, props) => {
     return (dispatch) => {
-           axios.get(url)
-               .then(response => {
-                   //alert('daryaft shode..');
-                   dispatch(getDataSuccess(response.data));
-               })
-               .catch(error => {
-                   //alert(error)
-                   dispatch(errorHandlerActions.handleHTTPError(error, props));
-   
-               }) 
-       
-        //dispatch(errorHandlerActions.handleHTTPError(myerr, props));
+        axios.get(url)
+            .then(response => {
+                //alert('daryaft shode..');
+                dispatch(getDataSuccess(response.data));
+            })
+            .catch(error => {
+                //alert(error)
+                dispatch(errorHandlerActions.handleHTTPError(error, props));
+
+            })
+
+        // dispatch(errorHandlerActions.handleHTTPError(myerr, props));
     }
 }
 
@@ -42,6 +42,7 @@ const postDataSuccess = (response) => {
 
 export const postData = (url, obj, props) => {
     return (dispatch) => {
+        debugger;
         axios.post(url, obj)
             .then(response => {
                 dispatch(postDataSuccess(response));
@@ -90,5 +91,13 @@ export const deleteData = (url, props) => {
                 dispatch(errorHandlerActions.handleHTTPError(error, props));
                 //TODO: handle the error when implemented
             })
+    }
+}
+
+export const closeSuccessModal = (props, url) => {
+    return {
+        type: actionTypes.CLOSE_SUCCESS_MODAL,
+        props: props,
+        url: url
     }
 }
