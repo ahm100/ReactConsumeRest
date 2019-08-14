@@ -10,6 +10,8 @@ import asyncComponent from '../hoc/AsyncComponent/AsyncComponent';
 import internalServer from '../components/ErrorPages/InternalServer/InternalServer';
 import CreateOwner from './Owner/CreateOwner/CreateOwner';
 import UpdateOwner from './Owner/UpdateOwner/UpdateOwner';
+import DeleteOwner from './Owner/DeleteOwner/DeleteOwner';
+
 
 
 const AsyncOwnerList = asyncComponent(() => {
@@ -26,6 +28,7 @@ class App extends Component {
             <Route path="/owner-list" component={AsyncOwnerList} />
             <Route path="/create" component={CreateOwner} />
             <Route path="/updateOwner/:id" component={UpdateOwner} />
+            <Route path="/delete/:id" component={DeleteOwner} />
 
             {/* baghiye route ha ghabl az ina biad vaela kar nemikone */}
             <Route path="/500" component={internalServer} />
