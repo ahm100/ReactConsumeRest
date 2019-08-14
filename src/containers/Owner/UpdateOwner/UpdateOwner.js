@@ -7,6 +7,8 @@ import * as repositoryActions from '../../../store/actions/repositoryActions';
 import * as errorHandlerActions from '../../../store/actions/errorHandlerActions';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import SuccessModal from '../../../components/Modals/SuccessModal/SuccessModal';
+import ErrorModal from '../../../components/Modals/ErrorModal/ErrorModal';
 
 class UpdateOwner extends Component {
     state = {
@@ -16,6 +18,56 @@ class UpdateOwner extends Component {
 
     componentWillMount = () => {
         this.setState({ ownerForm: returnInputConfiguration() });
+    }
+
+    componentDidMount = () => {
+        const id = this.props.match.params.id;
+        const url = '/employee/' + id;
+        this.props.onGetOwnerById(url, { ...this.props });
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        const updatedOwnerForm = { ...this.state.ownerForm };
+        let nameObject = { ...updatedOwnerForm.employee_name };
+        let salaryObject = { ...updatedOwnerForm.employee_salary };
+        let ageObject = { ...updatedOwnerForm.employee_age };
+        // let dateObject = { ...updatedOwnerForm.dateOfBirth };
+        // let addressObject = { ...updatedOwnerForm.address };
+
+        nameObject.value = nextProps.data.employee_name;
+        nameObject.valid = true;
+
+        salaryObject.value = nextProps.data.employee_salary;
+        salaryObject.valid = true;
+
+        ageObject.value = nextProps.data.employee_age;
+        ageObject.valid = true;
+       
+
+        updatedOwnerForm['employee_name'] = nameObject;
+        updatedOwnerForm['employee_salary'] = salaryObject;
+        updatedOwnerForm['employee_age'] = ageObject;
+        
+        this.setState({ ownerForm: updatedOwnerForm });
+    }
+
+    redirectToOwnerList = () => {
+        this.props.history.push('/owner-List');
+    }
+     
+    updateOwner = (event) => {
+        event.preventDefault();
+     
+        const ownerToUpdate = {
+            employee_name: this.state.ownerForm.employee_name.value,
+            employee_salary: this.state.ownerForm.employee_salary.value,
+            employee_age: this.state.ownerForm.employee_age.value,
+       
+        }
+     
+        const url = "/update/" + this.props.data.id;
+     
+        this.props.onUpdateOwner(url, ownerToUpdate, {...this.props});
     }
 
     handleChangeEvent = (event, id) => {
@@ -55,6 +107,15 @@ class UpdateOwner extends Component {
                         </Col>
                     </FormGroup>
                 </Form>
+
+                <SuccessModal show={this.props.showSuccessModal} modalHeaderText={'Success message'}
+                    modalBodyText={'Action completed successfully'}
+                    okButtonText={'OK'}
+                    successClick={() => this.props.onCloseSuccessModal('/owner-List', { ...this.props })} />
+                <ErrorModal show={this.props.showErrorModal} modalHeaderText={'Error message'}
+                    modalBodyText={this.props.errorMessage}
+                    okButtonText={'OK'}
+                    closeModal={() => this.props.onCloseErrorModal()} />
 
             </Well>
         )

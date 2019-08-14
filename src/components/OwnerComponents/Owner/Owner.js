@@ -4,12 +4,12 @@ import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import { Button } from 'react-bootstrap';
 
 const redirectToOwnerDetails = (id, history) => {
-    history.push('/employee/' + id);
+    history.push('/owner/' + id);
 }
 
 const redirectToUpdateOwner = (id, history) => {
     // history.push('/updateOwner/' + id);
-    history.push('/update/' + id);
+    history.push('/updateOwner/' + id);
 }
 
 const rediterctToDeleteOwner = (id, history) => {
